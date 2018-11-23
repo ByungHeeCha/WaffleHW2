@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- board/templates/board/post_list.html -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Post List - Seminar5</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <style>
+.main{
+}
+
+.main_common1{
+    width: 1000px;
+    height: 690px;
+}
+.main_common2{
+  width: 100px;
+  height: 60px;
+}
+</style>
+  </head>
+  <body>
+    <nav class="nav navbar navbar-expand-lg navbar-light bg-light">
+    {% if messages %}
+    <ul class="messages">
+      {% for msg in messages %}
+      <li class="nav-item active">{{ msg }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="main">
+    <div class="list main_common1" >
+      <ul class="list-group list-group-flush">
+        {% for obj in object_list %}
+        <li class="list-group-item"><a class="nav-link" href="{% url 'post_detail' pk=obj.id %}">{{ obj.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="paginator main_common2">
+      <div class="btn-group btn-group-sm" role="group">
+      {% if page_obj.has_previous %}
+      <a class="btn btn-primary btn-lg" href="?page={{ page_obj.previous_page_number }}">Prev</a>
+      {% endif %}
+      {% if page_obj.has_next %}
+      <a class="btn btn-primary btn-lg"  href="?page={{ page_obj.next_page_number }}">Next</a>
+      {% endif %}
+    </div>
+      <span class="current">
+        <br>Page {{ page_obj.number }} of {{ paginator.num_pages }}.
+      </span>
+    </div>
+    <div class="footer main_common2">
+      <a class="btn btn-success btn-sm" href="{% url 'post_create' %}">Write New Post</a>
+    </div>
+  </div>
+  </nav>
+  </body>
+</html>
